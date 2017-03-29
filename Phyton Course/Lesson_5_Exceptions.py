@@ -50,7 +50,8 @@ try:
 except IOError as e:
     print("can't read the file: ",e)
 
-# Dentro de la funcion para abrir el fichero, añadimos que se lance una excepcion nuestra en caso de que el fichero no tenga la extension requerida
+
+# En la funcion readline1 se incluye que se lance un excepcion definida por el usuario en el caso que el fichero no tenga la ext requerida
 def readline1(filename):
     if filename.endswith('.txt'):
         fh=open(filename)
@@ -63,4 +64,35 @@ except IOError as e:
 except ValueError as e:
     print("wrong file extension: ",e)
 
+# Como manejar excepciones multiples y excepciones genericas con un except bloque al final
+try:
+        fh=open('filename.doc')
+        x=1/0
+except FileNotFoundError as e:
+    print("problem is ",e)
+except ZeroDivisionError as e:
+        print("ZeroDivision problem ",e)
+except:
+        print("Generic exception")
+
+# Gestionar excepciones e ignorarlas
+try:
+    fh=open('filename.bmp')
+    print("file has been opened") # no se ejecuta esta linea, porque el fichero no existe, atrapa la excepciones y sale del bloque en el except
+except:
+    pass
+
+# Como usar el bloque Finally
+counter=0
+try:
+    fh=open('filename.bmp')
+    print("file has been opened") # no se ejecuta esta linea, porque el fichero no existe, atrapa la excepciones y sale del bloque en el except
+except:
+    counter+=1
+    print("there was a problem")
+    pass
+finally: # Se ejecuta siempre, haya o no excepcion; se puede utilizar para gestionar variables como contadores de errores, que luego pueden alterar el flujo de ejecucion
+    print("Numero de erroes = ",counter)
+    print("all work was done")
+    
 main()
